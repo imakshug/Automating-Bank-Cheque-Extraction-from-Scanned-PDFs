@@ -1,1 +1,1 @@
-# Web-Development-of-SweetSpot---Delivering-Delight-to-Your-Doorstep_Apr_2024
+#Automating-Bank-Check-Extraction-from-Scanned-PDFs_Apr_2024
