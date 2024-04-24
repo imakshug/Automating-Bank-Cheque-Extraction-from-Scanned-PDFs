@@ -17,7 +17,7 @@ def extract_xobjects(obj, images):
                 extract_xobjects(obj_ref.getObject(), images)
 
 # PDF file path
-pdf_path = r'C:\Automating-Bank-Check-Extraction-from-Scanned-PDFs_Apr_2024\check1.pdf'
+pdf_path = 'C:\Automating-Bank-Check-Extraction-from-Scanned-PDFs_Apr_2024\check1.pdf'
 
 # Open the PDF file in binary mode
 with open(pdf_path, 'rb') as file:

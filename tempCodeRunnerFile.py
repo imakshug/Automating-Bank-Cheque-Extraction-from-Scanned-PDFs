@@ -1,1 +1,1 @@
-pytesseract
+output_excel_path)
