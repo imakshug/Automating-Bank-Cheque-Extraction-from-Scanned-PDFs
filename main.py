@@ -6,14 +6,17 @@ from tqdm import tqdm
 import pandas as pd  
 import re
 
-# Function to extract text from image using Tesseract OCR
+# Set the path to the Tesseract executable
+pytesseract.pytesseract.tesseract_cmd = r'C:\Users\akarn\pytesseract-0.3.10\pytesseract'
+
+# Function to extract text from an image using Tesseract OCR
 def extract_text_from_image(image_path):
     image = cv2.imread(image_path)
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     text = pytesseract.image_to_string(gray)
     return text
 
-# Function to extract checks from PDF
+# Function to extract checks from a PDF
 def extract_checks_from_pdf(pdf_path, image_dir):
     # Convert PDF to images
     pages = convert_from_path(pdf_path)
@@ -28,6 +31,7 @@ def extract_checks_from_pdf(pdf_path, image_dir):
         # Extract text from image
         text = extract_text_from_image(image_path)
 
+        # Extract check details from text
         check_details = extract_check_details(text)
 
         checks_data.append(check_details)
@@ -47,6 +51,7 @@ def extract_check_details(text):
     amount_pattern = r'Amount: \$([0-9,\.]+)'
     date_pattern = r'Date: (\d{2}/\d{2}/\d{4})'
 
+    # Use regular expressions to extract check details from text
     check_details['Check_Number'] = re.search(check_number_pattern, text).group(1) if re.search(check_number_pattern, text) else ''
     check_details['Amount'] = re.search(amount_pattern, text).group(1) if re.search(amount_pattern, text) else ''
     check_details['Date'] = re.search(date_pattern, text).group(1) if re.search(date_pattern, text) else ''
