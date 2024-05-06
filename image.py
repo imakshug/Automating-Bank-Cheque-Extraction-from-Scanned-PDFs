@@ -12,7 +12,7 @@ def extract_text_from_image(image_path):
     return text
 
 # Example usage
-image_path = "C:\Automating-Bank-Check-Extraction-from-Scanned-PDFs_Apr_2024\output\page_1.jpg"  # Path to the image file
+image_path = "C:\Automating-Bank-Check-Extraction-from-Scanned-PDFs_Apr_2024\output\cheque_1.jpg"  # Path to the image file
 extracted_text = extract_text_from_image(image_path)
 print("Extracted Text:")
 print(extracted_text)
