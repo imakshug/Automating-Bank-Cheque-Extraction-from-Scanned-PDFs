@@ -9,7 +9,8 @@ import pandas as pd
 import re
 
 # Set the path to the Tesseract executable
-pytesseract.pytesseract.tesseract_cmd = r'C:\Users\akarn\pytesseract-0.3.10\pytesseract'
+pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files (x86)\Tesseract-OCR\tesseract.exe'
+
 
 def pdf_to_images(pdf_path, output_folder):
     # Open the PDF
