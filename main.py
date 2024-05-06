@@ -13,7 +13,6 @@ pytesseract.pytesseract.tesseract_cmd = r'C:\Users\akarn\pytesseract-0.3.10\pyte
 
 def pdf_to_images(pdf_path, output_folder):
     # Open the PDF
-    #hello
     pdf_document = fitz.open(pdf_path)
 
     # Create the output folder if it doesn't exist
