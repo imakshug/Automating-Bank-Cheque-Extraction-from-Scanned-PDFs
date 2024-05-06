@@ -1,7 +1,9 @@
+import os
+import fitz  # PyMuPDF
+from PIL import Image
+import pytesseract
 from pdf2image import convert_from_path  
-import pytesseract  
 import cv2 
-from PIL import Image  
 from tqdm import tqdm 
 import pandas as pd  
 import re
@@ -9,70 +11,50 @@ import re
 # Set the path to the Tesseract executable
 pytesseract.pytesseract.tesseract_cmd = r'C:\Users\akarn\pytesseract-0.3.10\pytesseract'
 
-# Function to extract text from an image using Tesseract OCR
-def extract_text_from_image(image_path):
-    image = cv2.imread(image_path)
-    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    text = pytesseract.image_to_string(gray)
+def pdf_to_images(pdf_path, output_folder):
+    # Open the PDF
+    pdf_document = fitz.open(pdf_path)
+
+    # Create the output folder if it doesn't exist
+    os.makedirs(output_folder, exist_ok=True)
+
+    # Iterate over each page
+    for page_number in range(len(pdf_document)):
+        # Get the page
+        page = pdf_document[page_number]
+        
+        # Convert the page to image
+        pix = page.get_pixmap()
+        img = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
+        
+        # Save the image
+        image_path = os.path.join(output_folder, f"page_{page_number + 1}.png")
+        img.save(image_path)
+
+    # Close the PDF
+    pdf_document.close()
+
+def extract_text_from_images(image_folder):
+    text = ""
+    # Iterate over each image in the folder
+    for image_path in os.listdir(image_folder):
+        # Use PIL to open image
+        with Image.open(os.path.join(image_folder, image_path)) as img:
+            # Use pytesseract to extract text from image
+            extracted_text = pytesseract.image_to_string(img)
+            text += extracted_text + "\n"
     return text
 
-# Function to extract checks from a PDF
-def extract_checks_from_pdf(pdf_path, image_dir):
-    # Convert PDF to images
-    pages = convert_from_path(pdf_path)
-    
-    checks_data = []
+# Path to your PDF file
+pdf_path = r"C:\Automating-Bank-Check-Extraction-from-Scanned-PDFs_Apr_2024\cheque1.pdf"
+# Path to the folder where you want to save the images
+output_folder = r"C:\Automating-Bank-Check-Extraction-from-Scanned-PDFs_Apr_2024\output"
 
-    # Extract text from each image
-    for page_num, page in enumerate(tqdm(pages, desc='Processing PDF')):
-        image_path = f"{image_dir}\\page_{page_num}.png"
-        page.save(image_path, 'PNG')
+# Convert PDF to images
+pdf_to_images(pdf_path, output_folder)
 
-        # Extract text from image
-        text = extract_text_from_image(image_path)
+# Extract text from images
+extracted_text = extract_text_from_images(output_folder)
 
-        # Extract check details from text
-        check_details = extract_check_details(text)
-
-        checks_data.append(check_details)
-
-    return checks_data
-
-# Function to extract check details from text using regular expressions
-def extract_check_details(text):
-    check_details = {
-        'Check_Number': '', 
-        'Amount': '', 
-        'Date': ''
-    }
-
-    # Example regular expressions to extract check details
-    check_number_pattern = r'Check Number: (\d+)'
-    amount_pattern = r'Amount: \$([0-9,\.]+)'
-    date_pattern = r'Date: (\d{2}/\d{2}/\d{4})'
-
-    # Use regular expressions to extract check details from text
-    check_details['Check_Number'] = re.search(check_number_pattern, text).group(1) if re.search(check_number_pattern, text) else ''
-    check_details['Amount'] = re.search(amount_pattern, text).group(1) if re.search(amount_pattern, text) else ''
-    check_details['Date'] = re.search(date_pattern, text).group(1) if re.search(date_pattern, text) else ''
-
-    return check_details
-
-# Function to save extracted checks to Excel
-def save_to_excel(data, output_path):
-    df = pd.DataFrame(data)
-    df.to_excel(output_path, index=False)
-
-if __name__ == "__main__":
-    # Input PDF path
-    pdf_path = "C:\\Automating-Bank-Check-Extraction-from-Scanned-PDFs_Apr_2024\\check1.pdf"
-
-    # Directory to save extracted images
-    image_dir = "C:\\Automating-Bank-Check-Extraction-from-Scanned-PDFs_Apr_2024"
-
-    # Extract checks from PDF
-    checks_data = extract_checks_from_pdf(pdf_path, image_dir)
-
-    # Save extracted checks to Excel
-    output_excel_path = "extracted_checks.xlsx"
-    save_to_excel(checks_data, output_excel_path)
+# Print or use the extracted text
+print(extracted_text)
