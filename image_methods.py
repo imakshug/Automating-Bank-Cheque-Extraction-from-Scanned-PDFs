@@ -12,6 +12,7 @@ def pdf_to_image(pdf_path, output_folder):
     pages = convert_from_path(pdf_path)
     for i, page in enumerate(pages):
         page.save(f"{output_folder}/cheque_{i+1}.jpg", "JPEG")
+        print("Successful PDF To Image Conversion!")
 
 #extract text
 def extract_text_from_image(image_path):
@@ -20,6 +21,7 @@ def extract_text_from_image(image_path):
         # Perform OCR on the image
         text = pytesseract.image_to_string(img)
     return text
+print("Successful text extraction")
 
 #text into csv
 def write_to_csv(text, csv_file):
@@ -27,6 +29,7 @@ def write_to_csv(text, csv_file):
         writer = csv.writer(file)
         writer.writerow(["Extracted Text"])
         writer.writerow([text])
+        print("Successful csv conversion")
         
 #csv into excel
 def csv_to_excel(csv_file, excel_file):
