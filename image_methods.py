@@ -2,6 +2,7 @@ import pandas as pd
 import pytesseract
 from PIL import Image
 import csv
+import re
 from pdf2image import convert_from_path
 
 # Set the path to the Tesseract executable
@@ -22,6 +23,26 @@ def extract_text_from_image(image_path):
         text = pytesseract.image_to_string(img)
     return text
 print("Successful text extraction")
+
+def parse_extracted_data(extracted_text):
+    data = {}
+
+    # Define regex patterns for each data field
+    patterns = {
+        "Date": r"Date: (\d{4}-\d{2}-\d{2})",
+        "Account Number": r"Account Number: (\d+)",
+        "Cheque Number": r"Cheque Number: (\d+)"
+    }
+
+    # Extract data using regex
+    for field, pattern in patterns.items():
+        match = re.search(pattern, extracted_text)
+        if match:
+            data[field] = match.group(1)
+        else:
+            data[field] = "Not found"
+
+    return data
 
 #text into csv
 def write_to_csv(text, csv_file):
@@ -49,6 +70,13 @@ extracted_text = extract_text_from_image(image_path)
 print("Extracted Text:")
 print(extracted_text)
 
+# ocr text 
+
+parsed_data = parse_extracted_data(extracted_text)
+
+# Print parsed data
+for field, value in parsed_data.items():
+    print(f"{field}: {value}")
 # Path to the CSV file
 csv_file = "extracted_text.csv"  
 write_to_csv(extracted_text, csv_file)
