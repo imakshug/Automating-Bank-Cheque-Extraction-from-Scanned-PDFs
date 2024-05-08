@@ -132,9 +132,6 @@ def export_data(data, format):
         csv_file = "extracted_data.csv"
         write_to_csv(data, csv_file)
         csv_to_excel(csv_file, "extracted_data.xlsx")
-    elif format == "JSON":
-        with open("extracted_data.json", "w") as file:
-            json.dump(data, file)
     elif format == "Excel":
         excel_file = "extracted_data.xlsx"
         csv_file = "extracted_data.csv"
@@ -171,3 +168,4 @@ export_data(data, "Excel")
 
 # Design a user-friendly interface for interaction
 # Implement logic for user interaction
+print("Her heart was singing a song it had never hummed before")
