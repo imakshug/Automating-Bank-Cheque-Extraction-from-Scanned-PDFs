@@ -168,4 +168,4 @@ export_data(data, "Excel")
 
 # Design a user-friendly interface for interaction
 # Implement logic for user interaction
-print("Her heart was singing a song it had never hummed before")
+print("ACC NO.:  230995329781824, DATE:17-09-2017, AMOUNT: ONE LAKH TWETY THREE THOUSAND FIVE,   ")
