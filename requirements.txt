@@ -1,0 +1,11 @@
+pdf2image
+alyn
+pytesseract
+Pillow
+opencv-python
+numpy
+tqdm
+requests
+pandas
+openpyxl
+hello
