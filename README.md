@@ -1,1 +1,1 @@
-#Automating-Bank-Check-Extraction-from-Scanned-PDFs_Apr_2024
+#Automating-Bank-Cheque-Extraction-from-Scanned-PDFs_Apr_2024
