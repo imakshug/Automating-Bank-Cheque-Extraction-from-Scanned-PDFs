@@ -3,6 +3,13 @@ from tkinter import filedialog
 from pdf2image import convert_from_path
 import pytesseract
 from PIL import Image
+import os
+
+# Set the path to the Tesseract executable
+pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+
+# Set the TESSDATA_PREFIX environment variable
+os.environ['TESSDATA_PREFIX'] = r'C:\Program Files\Tesseract-OCR\tessdata'
 
 class CheckExtractorApp:
     def __init__(self, root):

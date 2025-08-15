@@ -1,96 +1,91 @@
+# Automating Bank Check Extraction from Scanned PDFs
 
-# Automating Bank Cheque Extraction from Scanned Documents
+This project automates the extraction of text and data from bank checks in PDF format using OCR (Optical Character Recognition) technology. It features a modern Streamlit dashboard interface for easy interaction.
 
-This project, Automating Bank Cheque Extraction from Scanned Documentss, aims to develop an automated pipeline that extracts and processes cheque details from scanned PDF documents. It uses OCR (Optical Character Recognition) technologies to recognize key information from cheque images, such as:
+## 🌟 Features
 
+- **PDF to Image Conversion**: Converts PDF files containing checks to images
+- **Advanced OCR**: Extract text from check images using Tesseract OCR with preprocessing
+- **Smart Data Parsing**: Automatically identifies account numbers, dates, amounts, payee information
+- **Multiple Export Formats**: Export data to CSV, Excel, and JSON formats
+- **Streamlit Dashboard**: Interactive data science dashboard with multi-page navigation
+- **Traditional GUI**: Desktop application with file browser
+- **Batch Processing**: Process multiple files simultaneously
+- **Analytics**: View processing statistics and trends
 
-- Bank name
-- Cheque number
-- Account holder’s name
-- IFSC code
-- MICR code
-- Amount
-- Date of issuance
+## 📋 Requirements
 
+- Python 3.7+
+- Tesseract OCR (installed and configured)
+- Required Python packages (see requirements.txt)
 
+## 🚀 Quick Start
 
-## Features
+### 1. Installation
 
-- Automated Cheque Extraction: Extracts essential information from scanned cheque PDFs.
-- Batch Processing: Supports processing multiple PDF files at once.
-- Data Export: Saves extracted data in CSV or Excel format for easy analysis.
-- Graphical User Interface (GUI): Provides a simple interface to run the application.
-- Logging & Error Handling: Logs the process and captures any errors for review.
-## Installation
-
-### Prerequisites
-- Python 3.8 or above
-- Tesseract OCR
-- Libraries from requirements.txt
-
-Steps
-1. Clone the repository:
-```bash
- git clone https://github.com/yourusername/Automating-Bank-Cheque-Extraction.git
- cd Automating-Bank-Cheque-Extraction
-
-```
-2. Install dependencies:
-```bash
+1. Clone this repository or download the project files
+2. Install Tesseract OCR on your system
+3. Create and activate virtual environment:
+   ```bash
+   python -m venv venv_new
+   .\venv_new\Scripts\Activate.ps1  # Windows
+   ```
+4. Install required packages:
+   ```bash
    pip install -r requirements.txt
-```   
-3. [Install Tesseract OCR](https://github.com/tesseract-ocr/tesseract):
+   ```
 
+### 2. Choose Your Interface
 
-4. Add Tesseract to your system PATH.
-## Usage/Examples
-### Running the Extraction Script
-1. Place the scanned PDF files in the data/ folder.
+#### 📊 **Streamlit Dashboard (Recommended)**
+Interactive data science dashboard:
+```bash
+# Run directly
+streamlit run streamlit_app.py
 
-2. Run the main script:
-```python
-python src/main.py --input data/cheque.pdf --output output/extracted_data.csv
+# Or use batch file
+run_streamlit.bat
+```
+Access at: http://localhost:8501
 
+**Features:**
+- Multi-page application (Home, Upload, Batch Processing, Analytics)
+- Advanced data visualization with charts
+- Batch processing capabilities
+- Interactive widgets and controls
+- Built-in data science tools
+- Export options
+- Processing analytics
+
+#### 🖥️ **Desktop GUI**
+Traditional desktop application:
+```bash
+# Run directly
+python gui.py
+
+# Or use batch file
+run_gui.bat
 ```
 
-3. You can also use the GUI:
-```python
-python src/gui.py
+#### ⌨️ **Command Line**
+Direct script execution:
+```bash
+# Run directly
+python main.py
+
+# Or use batch file
+run_main.bat
 ```
 
-### Output
-The extracted cheque information will be stored in output/extracted_data.csv and output/extracted_text.xlsx.
-## Technology Stack
+## Project Structure
 
+- `main.py` - Main script with core functionality
+- `gui.py` - Tkinter-based GUI application
+- `image_methods.py` - Image processing and OCR functions
+- `requirements.txt` - Python package dependencies
+- `output/` - Directory for processed images
+- `cheque.pdf` - Sample PDF file for testing
 
-**Python:** Core language for development.
+## Note
 
-**Tesseract OCR:** For text recognition from scanned cheque images.
-
-**OpenCV:** For image preprocessing.
-
-**PyPDF2 / pdfplumber:** For PDF handling and extraction.
-
-**Regex:** For pattern matching of cheque data.
-
-**Pandas:** For organizing and storing the extracted data.
-
-
-## License
-
-This project is licensed under the MIT License - see the [License](https://choosealicense.com/licenses/mit/) file for details.
-
-
-## Contributing
-
-Contributions are always welcome!
-
-1. Fork the repository.
-2. Create a new branch (git checkout -b feature-branch).
-3. Commit your changes (git commit -m 'Add new feature').
-4. Push the branch (git push origin feature-branch).
-5. Open a pull request and describe the changes in detail.
-
-
-Please adhere to this project's `code of conduct`.
-
+Make sure Tesseract OCR is properly installed and the paths in the code match your installation.
