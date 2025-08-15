@@ -2,10 +2,14 @@ import pandas as pd
 import pytesseract
 from PIL import Image
 import csv
+import os
 from pdf2image import convert_from_path
 
 # Set the path to the Tesseract executable
-pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files (x86)\Tesseract-OCR\tesseract.exe'
+pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+
+# Set the TESSDATA_PREFIX environment variable
+os.environ['TESSDATA_PREFIX'] = r'C:\Program Files\Tesseract-OCR\tessdata'
 
 # Function to convert PDF to image
 def pdf_to_image(pdf_path, output_folder):
@@ -141,8 +145,9 @@ def export_data(data, format):
         print("Invalid format specified")
 
 # Example usage
-pdf_file = "C:\Automating-Bank-Check-Extraction-from-Scanned-PDFs_Apr_2024\cheque.pdf"  # Path to your PDF file
-image_path = "C:\Automating-Bank-Check-Extraction-from-Scanned-PDFs_Apr_2024\output\cheque_1.jpg"  # Path to the image file
+current_dir = os.path.dirname(os.path.abspath(__file__))
+pdf_file = os.path.join(current_dir, "cheque.pdf")  # Path to your PDF file
+image_path = os.path.join(current_dir, "output", "cheque_1.jpg")  # Path to the image file
 output_folder = "output"  # Output folder where images will be saved
 
 # Integrate OCR for text extraction
